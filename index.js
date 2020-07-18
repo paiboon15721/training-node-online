@@ -8,6 +8,8 @@ const server = http.createServer((req, res) => {
     const data = { name: 'myname', lastName: 'mylastname' }
     res.setHeader('Content-Type', 'application/json')
     res.end(JSON.stringify(data))
+  } else if (req.url === '/person' && req.method === 'POST') {
+    console.log('insert person to db')
   }
 })
 
