@@ -29,15 +29,41 @@ const myReadFile = fileUrl =>
     })
   })
 
-myReadFile(`${__dirname}/index.js`)
-  .then(data => {
-    console.log(data.toString())
-    return myReadFile(`${__dirname}/koa.js`)
-  })
-  .then(data => {
-    console.log(data.toString())
-  })
-  .catch(console.log)
+const app = async () => {
+  const myFiles = ['index.js', 'koa.js', 'variables.js', 'objects.js']
+
+  try {
+    const results = await Promise.all(
+      myFiles.map(file => myReadFile(`${__dirname}/${file}`)),
+    )
+    // const results = await Promise.all([
+    //   myReadFile(`${__dirname}/index.js`),
+    //   myReadFile(`${__dirname}/koa.js`),
+    //   myReadFile(`${__dirname}/variables.js`),
+    //   myReadFile(`${__dirname}/objects.js`),
+    // ])
+
+    console.log(results)
+    // const indexData = await myReadFile(`${__dirname}/index.js`)
+    // const koaData = await myReadFile(`${__dirname}/koas.js`)
+    // console.log(indexData.toString())
+    // console.log(koaData.toString())
+  } catch (err) {
+    console.log(`My error is ${err}`)
+  }
+}
+
+app()
+
+// myReadFile(`${__dirname}/index.js`)
+//   .then(data => {
+//     console.log(data.toString())
+//     return myReadFile(`${__dirname}/koa.js`)
+//   })
+//   .then(data => {
+//     console.log(data.toString())
+//   })
+//   .catch(console.log)
 
 // fs.readFile(`${__dirname}/index.js`, function (err, data) {
 //   if (err) {
